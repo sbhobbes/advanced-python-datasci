@@ -2,6 +2,7 @@ import my_module
 import pandas as pd
 import pytest
 from sklearn.compose import ColumnTransformer
+from loguniform_int import loguniform_int
 
 
 def test_invocation():
@@ -59,3 +60,10 @@ def test_make_preprocessor():
     
     assert isinstance(preprocessor, ColumnTransformer), \
         f'Expected an object of the sklearn.compose.ColumnTransformer class, but got an object of type "{type(preprocessor)}" instead.'
+
+
+@pytest.mark.parametrize('a, b', [(2, 30), (1, 100)])
+def test_log_uniform_int(a, b):
+
+    lu = loguniform_int(a, b)
+    assert lu._distribution.args == (a, b)
